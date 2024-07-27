@@ -26,13 +26,12 @@ def get_driver_version():
     try:
         out, err = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
     except IndexError as e:
-        print('Check chrome version failed:{}'.format(e))
-        return 0
+        exit('Check chrome version failed:{}'.format(e))
     if system == "Linux" or system == "Darwin":
         out = out.decode("utf-8").split(" ")[2].split(".")[0]
     elif system == "Windows":
         out = out.decode("utf-8").split(".")[0]
-    print(out)
+    
     return int(out)
 
 def weread(cookie_string):
@@ -43,7 +42,7 @@ def weread(cookie_string):
 
     # 获取驱动版本
     version = get_driver_version()
-
+    print("driver_version=%d" % version, flush=True)
     
     # 创建驱动
     driver = uc.Chrome(version_main=version, options=options)
@@ -77,14 +76,14 @@ def weread(cookie_string):
     # 刷新网页
     driver.refresh()
 
-    # 等待3秒
+    # 等待10秒
     time.sleep(10)
 
     # input('登录后')
 
     try:
         element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[1]/div/div[2]/div")
-        print("元素存在！", element)
+        print("登录成功！", flush=True)
     except NoSuchElementException:
         exit("登录失败！")
     
@@ -94,13 +93,13 @@ def weread(cookie_string):
             # 查找并点击指定的元素(下一页按钮)
             element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[2]/button/span[1]")
             element.click()
-            print("下一页已点击！")
+            print("下一页已点击！ i=%d" % i, flush=True)
         except NoSuchElementException:
             # 查找并点击指定的元素(上一页按钮)
             element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[1]/button/span[2]")
             element.click()
-            print("上一页已点击！")
-        time.sleep()
+            print("上一页已点击！ i=%d" % i, flush=True)
+        time.sleep(60)
 
     # 退出
     # driver.close()
