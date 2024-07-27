@@ -32,8 +32,8 @@ def get_driver_version():
         out = out.decode("utf-8").split(" ")[2].split(".")[0]
     elif system == "Windows":
         out = out.decode("utf-8").split(".")[0]
-    # print(out)
-    return out
+    print(out)
+    return int(out)
 
 def weread(cookie_string):
     # 设置驱动选项
