@@ -1,0 +1,28 @@
+name: wxAutoread
+
+on:
+  schedule:
+  - cron: "0 23 * * *"
+  
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip' # caching pip dependencies
+    - name: Install requirements
+      run: |
+        pip install -r ./requirements.txt
+    - name: Run 
+      run: |
+        python ./checkin.py "${{secrets.weread_COOKIE}}"
+    - uses: gautamkrishnar/keepalive-workflow@master
