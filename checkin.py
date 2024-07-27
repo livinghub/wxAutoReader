@@ -11,6 +11,9 @@ import subprocess
 import base64
 import io
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+import random
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
@@ -38,6 +41,7 @@ def weread(cookie_string):
     # 设置驱动选项
     options = uc.ChromeOptions()
     # options.add_argument('--proxy-server=socks5://127.0.0.1:10088')
+    options.add_argument("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 GLS/100.10.9989.100")
     options.add_argument("--disable-popup-blocking")
 
     # 获取驱动版本
@@ -48,7 +52,7 @@ def weread(cookie_string):
     driver = uc.Chrome(version_main=version, options=options)
     
     # 记得写完整的url 包括http和https
-    driver.get(r'https://weread.qq.com/web/reader/d0732a50718551ffd07cf2b')
+    driver.get(r'https://weread.qq.com/web/reader/98f3201071a2456898fff22')
 
     # 首先清除由于浏览器打开已有的
     driver.delete_all_cookies()
@@ -86,20 +90,29 @@ def weread(cookie_string):
         print("登录成功！", flush=True)
     except NoSuchElementException:
         exit("登录失败！")
-    
 
-    for i in range(100):
+    # 创建一个 ActionChains 对象
+    actions = ActionChains(driver)
+
+    pages = random.randint(80, 150)
+    for i in range(pages):
         try:
             # 查找并点击指定的元素(下一页按钮)
             element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[2]/button/span[1]")
-            element.click()
-            print("下一页已点击！ i=%d" % i, flush=True)
+            # element.click()
+            actions.send_keys(Keys.ARROW_RIGHT).perform()
+            print("下一页！ i=%d" % i, flush=True)
         except NoSuchElementException:
             # 查找并点击指定的元素(上一页按钮)
-            element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[1]/button/span[2]")
-            element.click()
-            print("上一页已点击！ i=%d" % i, flush=True)
-        time.sleep(60)
+            # element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[1]/button/span[2]")
+            # element.click()
+            actions.send_keys(Keys.ARROW_LEFT).perform()
+            print("上一页！ i=%d" % i, flush=True)
+        time.sleep(random.randint(20, 60))
+
+    driver.refresh()
+    time.sleep(10)
+        
 
     # 退出
     # driver.close()
