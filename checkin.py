@@ -41,7 +41,7 @@ def weread(cookie_string):
     # 设置驱动选项
     options = uc.ChromeOptions()
     # options.add_argument('--proxy-server=socks5://127.0.0.1:10088')
-    options.add_argument("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 GLS/100.10.9989.100")
+    options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 GLS/100.10.9989.100")
     options.add_argument("--disable-popup-blocking")
 
     # 获取驱动版本
