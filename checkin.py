@@ -109,7 +109,7 @@ def weread(cookie_string):
             actions.send_keys(Keys.ARROW_LEFT).perform()
             print("上一页！ i=%d" % i, flush=True)
         time.sleep(random.randint(20, 60))
-
+    print("执行完成" % i, flush=True)
     driver.refresh()
     time.sleep(10)
         
