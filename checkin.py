@@ -50,9 +50,6 @@ def weread(cookie_string):
     
     # 创建驱动
     driver = uc.Chrome(version_main=version, options=options)
-    
-    # 记得写完整的url 包括http和https
-    driver.get(r'https://weread.qq.com/web/reader/fc042bc3643425f374a4f35526d355054344357367267367437473178333164374')
 
     # 首先清除由于浏览器打开已有的
     driver.delete_all_cookies()
@@ -77,8 +74,11 @@ def weread(cookie_string):
     for cookie in cookies_list:
         driver.add_cookie(cookie)
 
-    # 刷新网页
-    driver.refresh()
+    # 记得写完整的url 包括http和https
+    driver.get(r'https://weread.qq.com/web/reader/fc042bc3643425f374a4f35526d355054344357367267367437473178333164374')
+
+    # # 刷新网页
+    # driver.refresh()
 
     # 等待10秒
     time.sleep(10)
