@@ -51,23 +51,11 @@ def weread(cookie_string):
     # 创建驱动
     driver = uc.Chrome(version_main=version, options=options)
 
+    # 记得写完整的url 包括http和https
+    driver.get(r'https://weread.qq.com')
+
     # 首先清除由于浏览器打开已有的
     driver.delete_all_cookies()
-
-    # 读取cookie
-    # with open('cookies.txt','r') as f:
-    #     # 使用json读取cookies 注意读取的是文件 所以用load而不是loads
-    #     cookies_list = json.load(f)
-
-    #     #方法2删除该字段
-    #     for cookie in cookies_list:
-    #         # 该字段有问题所以删除就可以 
-    #         # if 'expiry' in cookie:
-    #         #     del cookie['expiry']
-    #         driver.add_cookie(cookie)
-
-
-    # input('载入cookie前')
 
     # 读取及载入cookie
     cookies_list = json.loads(cookie_string)
