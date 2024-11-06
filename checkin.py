@@ -75,28 +75,30 @@ def weread(cookie_string):
 
     try:
         element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[1]/div/div[2]/div")
-        print("登录成功！", flush=True)
+        print("Login successful", flush=True)
     except NoSuchElementException:
-        exit("登录失败！")
+        exit("Login failed")
 
     # 创建一个 ActionChains 对象
     actions = ActionChains(driver)
 
-    pages = random.randint(80, 150)
+    pages = random.randint(100, 150)
     for i in range(pages):
         try:
             # 查找并点击指定的元素(下一页按钮)
-            element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[2]/button/span[1]")
+            element = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div[2]/div[5]/div[2]/button")
+            
             # element.click()
             actions.send_keys(Keys.ARROW_RIGHT).perform()
-            print("下一页！ i=%d" % i, flush=True)
+            print("next_page i=%d" % i, flush=True)
         except NoSuchElementException:
+            exit('err: No next page button!')
             # 查找并点击指定的元素(上一页按钮)
             # element = driver.find_element(By.XPATH, "//*[@id='routerView']/div/div[1]/div[2]/div/div[2]/div[4]/div[1]/button/span[2]")
             # element.click()
             actions.send_keys(Keys.ARROW_LEFT).perform()
-            print("上一页！ i=%d" % i, flush=True)
-        time.sleep(random.randint(20, 60))
+            print("pre_page i=%d" % i, flush=True)
+        time.sleep(random.randint(30, 60))
     print("done!", flush=True)
     driver.refresh()
     time.sleep(10)

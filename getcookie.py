@@ -4,6 +4,7 @@ import json
 import base64
 import platform
 import subprocess
+from datetime import datetime
 
 
 def get_driver_version():
@@ -45,6 +46,7 @@ input("完成登录后，按任意键")
 with open('cookies.txt','w') as f:
     # 将cookies保存为json格式
     cookies = json.dumps(driver.get_cookies())
+    f.write('\n'+datetime.now()+'\n')
     f.write(cookies+'\n')
     print(cookies)
 
