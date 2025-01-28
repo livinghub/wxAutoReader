@@ -25,8 +25,8 @@ def get_driver_version():
         out = out.decode("utf-8").split(" ")[2].split(".")[0]
     elif system == "Windows":
         out = out.decode("utf-8").split(".")[0]
-    # print(out)
-    return out
+    # exit(str(int(out)))
+    return int(out)
 
 # 填写webdriver的保存目
 options = uc.ChromeOptions()
@@ -46,7 +46,7 @@ input("完成登录后，按任意键")
 with open('cookies.txt','w') as f:
     # 将cookies保存为json格式
     cookies = json.dumps(driver.get_cookies())
-    f.write('\n'+datetime.now()+'\n')
+    f.write('\n'+str(datetime.now())+'\n')
     f.write(cookies+'\n')
     print(cookies)
 
