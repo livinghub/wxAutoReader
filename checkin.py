@@ -58,15 +58,25 @@ def weread(cookie_string):
     driver.delete_all_cookies()
 
     # 读取及载入cookie
-    cookies_list = json.loads(cookie_string)
-    for cookie in cookies_list:
-        driver.add_cookie(cookie)
+    if cookie_string.startswith("cookie:"):
+        cookie_string = cookie_string[len("cookie:"):]
+    cookie_string = cookie_string.replace("/","%2")
+    cookie_dict = [ 
+        {"name" : x.split('=')[0].strip(), "value": x.split('=')[1].strip()} 
+        for x in cookie_string.split(';')
+    ]
+
+    driver.delete_all_cookies()
+    for cookie in cookie_dict:
+        driver.add_cookie({
+            "domain": "weread.qq.com",
+            "name": cookie["name"],
+            "value": cookie["value"],
+            "path": "/",
+        })
 
     # 记得写完整的url 包括http和https
     driver.get(r'https://weread.qq.com/web/reader/527327e0813ab7492g0166e0ka87322c014a87ff679a21ea')
-
-    # # 刷新网页
-    # driver.refresh()
 
     # 等待10秒
     time.sleep(10)
@@ -111,21 +121,7 @@ def weread(cookie_string):
 
 
 if __name__ == "__main__":
-    b64str = sys.argv[1]
-    assert b64str
-    
-    # # 编码
-    # message = "Hello, World!"
-    # message_bytes = message.encode()
-    # base64_bytes = base64.b64encode(message_bytes)
-    # base64_message = base64_bytes.decode()
-    # print(base64_message)
-
-    # 解码
-    base64_message = b64str
-    base64_bytes = base64_message.encode()
-    message_bytes = base64.b64decode(base64_bytes)
-    cookie_string = message_bytes.decode()
-    # print(cookie_string)
+    cookie_string = sys.argv[1]
+    assert cookie_string
 
     weread(cookie_string)
