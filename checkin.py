@@ -76,7 +76,7 @@ def weread(cookie_string):
         })
 
     # 记得写完整的url 包括http和https
-    driver.get(r'https://weread.qq.com/web/reader/527327e0813ab7492g0166e0ka87322c014a87ff679a21ea')
+    driver.get(r'https://weread.qq.com/web/reader/47532ac05c659b47554a825k283328802332838023a7529')
 
     # 等待10秒
     time.sleep(10)
