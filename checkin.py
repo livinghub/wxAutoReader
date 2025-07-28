@@ -76,7 +76,7 @@ def weread(cookie_string):
         })
 
     # 记得写完整的url 包括http和https
-    driver.get(r'https://weread.qq.com/web/reader/47532ac05c659b47554a825k283328802332838023a7529')
+    driver.get(r'https://weread.qq.com/web/reader/527327e0813ab7492g0166e0k70e32fb021170efdf2eca12')
 
     # 等待10秒
     time.sleep(10)
@@ -96,7 +96,7 @@ def weread(cookie_string):
     for i in range(pages):
         try:
             # 查找并点击指定的元素(下一页按钮)
-            element = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div[2]/div[5]/div[2]/button")
+            # element = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div[2]/div[5]/div[2]/button")
             
             # element.click()
             actions.send_keys(Keys.ARROW_RIGHT).perform()
