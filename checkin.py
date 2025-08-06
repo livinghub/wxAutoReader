@@ -92,7 +92,7 @@ def weread(cookie_string):
     # 创建一个 ActionChains 对象
     actions = ActionChains(driver)
 
-    pages = random.randint(50, 100)
+    pages = random.randint(100, 200)
     for i in range(pages):
         try:
             # 查找并点击指定的元素(下一页按钮)
